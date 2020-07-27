@@ -91,14 +91,14 @@ UINT64 GetAwardCodeVaule(const char* code)
 int MakeGiftCard(int argc, char** argv)
 {
 	if (argc != 4)
-		ReturnErr(-101, "make key param count error!");
+		ReturnErr(-101, "make key param not matching!");
 
-	//礼包ID太大
+	//id闄愬埗
 	unsigned nID = atoi(argv[2]);
 	if (nID >= unsigned(1 << (sizeof(UINT64) * 8 - AWARD_CODE_BIT * AWARD_CODE_NUM)))
-		ReturnErr(-102, "gift id is to0 big!");
+		ReturnErr(-102, "gift id is too big!");
 
-	//礼包数量
+	//鏁伴噺闄愬埗
 	unsigned nNum = atoi(argv[3]);
 	if (nNum > 100000)
 		ReturnErr(-1, "gift count is too much!");
@@ -118,7 +118,7 @@ int MakeGiftCard(int argc, char** argv)
 int GetID(int argc, char** argv)
 {
 	if (argc != 3)
-		ReturnErr(-101, "get id param count error!");
+		ReturnErr(-101, "get id, param count not matching!");
 
 	cout << GetAwardID(argv[2]) << endl;
 
@@ -138,7 +138,7 @@ FunctionInfo AllFunction[] = {
 
 int main(int argc, char** argv){
 	if (argc < 2)
-		ReturnErr(-1, "param count error!");
+		ReturnErr(-1, "param count not enough!");
 
 	for (size_t i = 0; i < ArrayCount(AllFunction); i++)
 	{
@@ -146,5 +146,5 @@ int main(int argc, char** argv){
 			return AllFunction[i].handle(argc, argv);
 	}
 
-	ReturnErr(-2, "can't find oprate");
+	ReturnErr(-2, "can't find operation");
 }
